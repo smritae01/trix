@@ -3,7 +3,9 @@
 
 **Compose beautifully formatted text in your web application.** Trix is a WYSIWYG editor for writing messages, comments, articles, and lists—the simple documents most web apps are made of. It features a sophisticated document model, support for embedded attachments, and outputs terse and consistent HTML.
 
-Trix is an open-source project from [Basecamp](https://basecamp.com/), the creators of [Ruby on Rails](http://rubyonrails.org/). Millions of people trust their text to Basecamp, and we built Trix to give them the best possible editing experience. See Trix in action in the [all-new Basecamp 3](https://basecamp.com/3-is-coming).
+Trix is an open-source project from [Basecamp](https://basecamp.com/), the creators of [Ruby on Rails](http://rubyonrails.org/). Millions of people trust their text to Basecamp, and we built Trix to give them the best possible editing experience. 
+
+See Trix in action in the [all-new Basecamp 3](https://basecamp.com/3-is-coming).
 
 ### Different By Design
 
@@ -11,13 +13,17 @@ Most WYSIWYG editors are wrappers around HTML’s `contenteditable` and `execCom
 
 Because these APIs were never fully specified or documented, and because WYSIWYG HTML editors are enormous in scope, each browser’s implementation has its own set of bugs and quirks, and JavaScript developers are left to resolve the inconsistencies.
 
-Trix sidesteps these inconsistencies by treating `contenteditable` as an I/O device: when input makes its way to the editor, Trix converts that input into an editing operation on its internal document model, then re-renders that document back into the editor. This gives Trix complete control over what happens after every keystroke, and avoids the need to use `execCommand` at all.
+Trix sidesteps these inconsistencies by treating `contenteditable` as an I/O device, that is,
+when input makes its way to the editor, Trix converts that input into an editing operation on its internal document model, then re-renders that document back into the editor. 
+This gives Trix complete control over what happens after every keystroke, and avoids the need to use `execCommand` at all.
 
 ### Built for the Modern Web
 
 <details><summary>Trix supports all evergreen, self-updating desktop and mobile browsers.</summary><img src="https://s3.amazonaws.com/trix-depot/test-status-images/trix.svg"></details>
 
-Trix is built with emerging web standards, notably [Custom Elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements), [Mutation Observer](https://dom.spec.whatwg.org/#mutation-observers), and [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). Eventually we expect all browsers to implement these standards. In the meantime, Trix includes [polyfills](https://en.wikipedia.org/wiki/Polyfill_(programming)) for missing functionality.
+Trix is built with emerging web standards, notably [Custom Elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements), [Mutation Observer](https://dom.spec.whatwg.org/#mutation-observers), and [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise). 
+Eventually we expect all browsers to implement these standards. 
+In the meantime, Trix includes [polyfills](https://en.wikipedia.org/wiki/Polyfill_(programming)) for missing functionality.
 
 # Getting Started
 
@@ -39,11 +45,13 @@ To use your own polyfills, or to target only browsers that support all of the re
 
 Place an empty `<trix-editor></trix-editor>` tag on the page. Trix will automatically insert a separate `<trix-toolbar>` before the editor.
 
-Like an HTML `<textarea>`, `<trix-editor>` accepts `autofocus` and `placeholder` attributes. Unlike a `<textarea>`, `<trix-editor>` automatically expands vertically to fit its contents.
+Like an HTML `<textarea>`, `<trix-editor>` accepts `autofocus` and `placeholder` attributes. 
+Unlike a `<textarea>`, `<trix-editor>` automatically expands vertically to fit its contents.
 
 ## Integrating With Forms
 
-To submit the contents of a `<trix-editor>` with a form, first define a hidden input field in the form and assign it an `id`. Then reference that `id` in the editor’s `input` attribute.
+To submit the contents of a `<trix-editor>` with a form, first define a hidden input field in the form and assign it an `id`. 
+Then reference that `id` in the editor’s `input` attribute.
 
 ```html
 <form …>
@@ -65,7 +73,8 @@ To populate a `<trix-editor>` with stored content, include that content in the a
 </form>
 ```
 
-Always use an associated input element to safely populate an editor. Trix won’t load any HTML content inside a `<trix-editor>…</trix-editor>` tag.
+Remember to always use an associated input element to safely populate an editor. 
+Trix won’t load any HTML content inside a `<trix-editor>…</trix-editor>` tag.
 
 ## Styling Formatted Content
 
@@ -79,11 +88,14 @@ To ensure what you see when you edit is what you see when you save, use a CSS cl
 <div class="trix-content">Stored content here</div>
 ```
 
-The default `trix.css` file includes styles for basic formatted content—including bulleted and numbered lists, code blocks, and block quotes—under the class name `trix-content`. We encourage you to use these styles as a starting point by copying them into your application’s CSS with a different class name.
+The default `trix.css` file includes styles for basic formatted content—including bulleted and numbered lists, code blocks, and block quotes—under the class name `trix-content`. 
+
+We encourage you to use these styles as a starting point by copying them into your application’s CSS with a different class name.
 
 ## Storing Attached Files
 
-Trix automatically accepts files dragged or pasted into an editor and inserts them as attachments in the document. Each attachment is considered _pending_ until you store it remotely and provide Trix with a permanent URL.
+Trix automatically accepts files dragged or pasted into an editor and inserts them as attachments in the document. 
+Each attachment is considered _pending_ until you store it remotely and provide Trix with a permanent URL.
 
 To store attachments, listen for the `trix-attachment-add` event. Upload the attached files with XMLHttpRequest yourself and set the attachment’s URL attribute upon completion. See the [attachment example](https://trix-editor.org/js/attachments.js) for detailed information.
 
@@ -115,7 +127,9 @@ document.toString()  // is a JavaScript string
 
 ### Immutability and Equality
 
-Documents are immutable values. Each change you make in an editor replaces the previous document with a new document. Capturing a snapshot of the editor’s content is as simple as keeping a reference to its document, since that document will never change over time. (This is how Trix implements undo.)
+Documents are immutable values. Each change you make in an editor replaces the previous document with a new document.
+
+Capturing a snapshot of the editor’s content is as simple as keeping a reference to its document, since that document will never change over time. (This is how Trix implements undo.)
 
 To compare two documents for equality, use the `document.isEqualTo` method.
 
@@ -126,7 +140,8 @@ document.isEqualTo(element.editor.getDocument())  // true
 
 ## Getting and Setting the Selection
 
-Trix documents are structured as sequences of individually addressable characters. The index of one character in a document is called a _position_, and a start and end position together make up a _range_.
+Trix documents are structured as sequences of individually addressable characters. 
+The index of one character in a document is called a _position_, and a start and end position together make up a _range_.
 
 To get the editor’s current selection, use the `editor.getSelectedRange` method, which returns a two-element array containing the start and end positions.
 
@@ -353,9 +368,12 @@ The `<trix-editor>` element emits several events which you can use to observe an
 
 * `trix-file-accept` fires when a file is dropped or inserted into the editor. You can access the DOM `File` object through the `file` property on the event. Call `preventDefault` on the event to prevent attaching the file to the document.
 
-* `trix-attachment-add` fires after an attachment is added to the document. You can access the Trix attachment object through the `attachment` property on the event. If the `attachment` object has a `file` property, you should store this file remotely and set the attachment’s URL attribute. See the [attachment example](http://trix-editor.org/js/attachments.js) for detailed information.
+* `trix-attachment-add` fires after an attachment is added to the document. You can access the Trix attachment object through the `attachment` property on the event. 
+If the `attachment` object has a `file` property, you should store this file remotely and set the attachment’s URL attribute. 
+See the [attachment example](http://trix-editor.org/js/attachments.js) for detailed information.
 
-* `trix-attachment-remove` fires when an attachment is removed from the document. You can access the Trix attachment object through the `attachment` property on the event. You may wish to use this event to clean up remotely stored files.
+* `trix-attachment-remove` fires when an attachment is removed from the document. You can access the Trix attachment object through the `attachment` property on the event. 
+You may wish to use this event to clean up remotely stored files.
 
 # Contributing to Trix
 
